@@ -22,7 +22,7 @@ source venv/bin/activate # macOS/Linux
 pip install -r requirements.txt
 
 ## 4. Применение миграций
-alembic upgrade head
+python -m app.database.migrate
 
 ## 5. Запуск сервера разработки
 Запуск FastAPI сервера
