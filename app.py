@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import datetime
 
+
 API_URL = "http://localhost:8000/api/v1"
 
 def get_ensembles():
@@ -131,7 +132,7 @@ def add_performance(cd_id, music_id, performer):
 
 def get_performances_by_cd(cd_id):
     try:
-        response = requests.get(f"{API_URL}/cds/{cd_id}/performances")
+        response = requests.get(f"{API_URL}/cd/{cd_id}/performances")
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -171,10 +172,14 @@ def main():
             music_count = get_music_count(ensemble['id'])
             st.write(f"Количество музыкальных произведений: {music_count}")
 
+            cds = get_cds_by_ensemble(ensemble['id'])
             with st.expander("Компакт-диски"):
-                cds = get_cds_by_ensemble(ensemble['id'])
                 for cd in cds:
                     st.write(f"- {cd['title']} (Продано в этом году: {cd['sold_this_year']})")
+                    performances = get_performances_by_cd(cd['id'])
+                    st.write(f"Исполнения для {cd['title']}:")
+                    for performance in performances:
+                        st.write(f"  - Музыкальное произведение ID: {performance['music_id']}, Исполнитель: {performance['performer']}")
 
         st.subheader("Добавить новый ансамбль")
         name = st.text_input("Название ансамбля")

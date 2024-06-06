@@ -5,7 +5,6 @@ from fastapi import HTTPException
 
 logger = logging.getLogger("uvicorn.error")
 
-
 def get_ensemble(db: Session, ensemble_id: int):
     return db.query(models.Ensemble).filter(models.Ensemble.id == ensemble_id).first()
 
@@ -57,6 +56,7 @@ def create_music(db: Session, music: schemas.MusicCreate):
     except Exception as e:
         db.rollback()
         raise e
+
 def update_cd(db: Session, cd_id: int, cd_update: schemas.CDCreate):
     db_cd = db.query(models.CD).filter(models.CD.id == cd_id).first()
     if db_cd:
@@ -103,8 +103,6 @@ def create_performance(db: Session, performance: schemas.PerformanceCreate):
 
 def get_performances_by_cd(db: Session, cd_id: int):
     return db.query(models.Performance).filter(models.Performance.cd_id == cd_id).all()
-
-logger = logging.getLogger("uvicorn.error")
 
 def get_cd(db: Session, cd_id: int):
     return db.query(models.CD).filter(models.CD.id == cd_id).first()

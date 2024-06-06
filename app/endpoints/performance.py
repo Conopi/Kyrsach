@@ -1,4 +1,5 @@
 import logging
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .. import crud, schemas
@@ -23,3 +24,10 @@ def create_performance(performance: schemas.PerformanceCreate, db: Session = Dep
     except Exception as e:
         logger.error(f"Error creating performance: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+@router.get("/cd/{cd_id}/performances", response_model=List[schemas.Performance])
+def get_performances_by_cd(cd_id: int, db: Session = Depends(get_db)):
+    performances = crud.get_performances_by_cd(db, cd_id)
+    if performances is None:
+        raise HTTPException(status_code=404, detail="Performances not found")
+    return performances

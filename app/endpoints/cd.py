@@ -34,7 +34,6 @@ def update_cd(cd_id: int, cd: schemas.CDCreate, db: Session = Depends(get_db)):
 def get_top_selling_cds(db: Session = Depends(get_db)):
     return crud.get_top_selling_cds(db=db)
 
-
 logger = logging.getLogger("uvicorn.error")
 
 @router.delete("/cds/{cd_id}", response_model=schemas.CD)
