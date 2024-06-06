@@ -12,19 +12,19 @@
 git clone https://github.com/yourusername/musical_store.git
 cd musical_store
 
-2. Создание и активация виртуального окружения
+## 2. Создание и активация виртуального окружения
 python -m venv venv
 
 source venv/Scripts/activate # Windows
 source venv/bin/activate # macOS/Linux
 
-3. Установка зависимостей
+## 3. Установка зависимостей
 pip install -r requirements.txt
 
-4. Применение миграций
+## 4. Применение миграций
 alembic upgrade head
 
-5. Запуск сервера разработки
+## 5. Запуск сервера разработки
 Запуск FastAPI сервера
 uvicorn app.main
 --reload
@@ -32,5 +32,5 @@ uvicorn app.main
 Запуск Streamlit интерфейса
 streamlit run app/frontend.py
 
-Автор
+## Автор
 Автор проекта: [Maksim]
